@@ -24,5 +24,5 @@ public class Proveedor {
     String correoProveedor;
     String ciudadProveedor;
     String sitioWebProveedor;
-    String facturaProveedor;
+//    String facturaProveedor;
 }
