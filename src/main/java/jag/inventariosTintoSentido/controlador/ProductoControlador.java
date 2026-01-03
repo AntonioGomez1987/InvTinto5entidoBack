@@ -1,10 +1,12 @@
 package jag.inventariosTintoSentido.controlador;
 
+import jag.inventariosTintoSentido.excepcion.RecursoNoEncontradoExcepcion;
 import jag.inventariosTintoSentido.modelo.Producto;
 import jag.inventariosTintoSentido.servicio.ProductoServicio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +32,32 @@ public class ProductoControlador {
     public Producto agregarProducto(@RequestBody Producto producto) {
         logger.info("Producto agregar: " + producto);
         return this.productoServicio.guardarProducto(producto);
+    }
+
+    @GetMapping("/productos/{id}")
+    public ResponseEntity<Producto> obtenerProductoPorId(
+            @PathVariable int id
+    ){
+        Producto producto = this.productoServicio.buscarProductoPorId(id);
+        if (producto != null){
+            return ResponseEntity.ok(producto);
+        } else{
+            throw new RecursoNoEncontradoExcepcion("Nose encontro producto con el id: " + id);
+        }
+    }
+
+    @PutMapping("/productos/{id}")
+    public ResponseEntity<Producto> actualizarProducto(
+            @PathVariable int id,
+            @RequestBody Producto productoRecibido
+    ){
+        Producto producto = this.productoServicio.buscarProductoPorId(id);
+        producto.setDescripcionProducto(productoRecibido.getDescripcionProducto());
+        producto.setExistenciaProducto(productoRecibido.getExistenciaProducto());
+        producto.setPrecioProducto(productoRecibido.getPrecioProducto());
+        // Guardamos la informacion
+        this.productoServicio.guardarProducto(producto);
+        return ResponseEntity.ok(producto);
     }
 
 
