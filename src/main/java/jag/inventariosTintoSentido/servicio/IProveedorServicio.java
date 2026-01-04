@@ -8,5 +8,5 @@ public interface IProveedorServicio {
     List<Proveedor> listarProveedores();
     Proveedor buscarProveedorPorId(Integer idProveedor);
     Proveedor guardarProveedor(Proveedor proveedor);
-    void eliminarProveedor(Integer idProveedor);
+    void eliminarProveedorPorId(Integer idProveedor);
 }

@@ -30,7 +30,7 @@ public class ProveedorServicio  implements IProveedorServicio{
     }
 
     @Override
-    public void eliminarProveedor(Integer idProveedor) {
+    public void eliminarProveedorPorId(Integer idProveedor) {
         this.proveedorRepositorio.deleteById(idProveedor);
     }
 }
